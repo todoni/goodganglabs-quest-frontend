@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { Shark } from "./ui/High_quality_shark_animation";
+import { Shark } from "./ui/avatars/High_quality_shark_animation";
 
 function App() {
   return (

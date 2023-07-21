@@ -33,7 +33,7 @@ const http = new HttpClient(
   import.meta.env.VITE_APP_GOOGLE_TTS_BASE_URL,
   config
 );
-const lngDetector = new LanguageDetect();
+//const lngDetector = new LanguageDetect();
 
 class GoogleCloudTTSRepository implements ITTSRepository {
   private audio: HTMLAudioElement | null = null;
@@ -42,7 +42,7 @@ class GoogleCloudTTSRepository implements ITTSRepository {
     const data = {
       input: { text: script },
       voice: {
-        languageCode: "en-US",
+        languageCode: "ko-KR",
         ssmlGender: "FEMALE",
       },
       audioConfig: { audioEncoding: "MP3" },
@@ -52,10 +52,11 @@ class GoogleCloudTTSRepository implements ITTSRepository {
       data
     )) as any;
     if (!this.audio) {
-      this.audio = new Audio();
+      this.audio = new Audio(
+        "data:audio/wav;base64," + response.data.audioContent
+      );
     }
-    console.log(response.data);
-    this.audio.src = response.data.audioContent;
+
     this.audio.play();
   }
 

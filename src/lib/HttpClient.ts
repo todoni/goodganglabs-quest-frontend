@@ -8,7 +8,6 @@ class HttpClient {
       baseURL,
       ...options,
     });
-
     this.instance.interceptors.request.use(
       (config) => {
         return config;

@@ -24,16 +24,26 @@ interface OpenAIResponse {
   ];
 }
 
+interface OpenAIMessage {
+  role: string;
+  content: string;
+}
+
 const config = {
   headers: {
-    Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+    Authorization: `Bearer ${import.meta.env.VITE_APP_OPENAI_API_KEY}`,
     "Content-Type": "application/json",
   },
 };
 
-const http = new HttpClient(process.env.REACT_APP_OPENAI_BASE_URL!, config);
-
+const http = new HttpClient(import.meta.env.VITE_APP_OPENAI_BASE_URL, config);
 class ChatGPTRepository implements IChatAIRepository {
+  private readonly prevMessages: OpenAIMessage[];
+  constructor(messages: { text: string; isSender: boolean }[]) {
+    this.prevMessages = messages.map((item) => {
+      return { role: item.isSender ? "user" : "assistant", content: item.text };
+    });
+  }
   public async sendMessage(message: string): Promise<string> {
     const data = {
       model: "gpt-3.5-turbo",
@@ -42,13 +52,14 @@ class ChatGPTRepository implements IChatAIRepository {
           role: "system",
           content: "You are a helpful assistant.",
         },
+        ...this.prevMessages,
         {
           role: "user",
           content: message,
         },
       ],
     };
-
+    console.log("MESSAGES:", data.messages);
     try {
       const response: AxiosResponse<OpenAIResponse> = await http.post(
         "chat/completions",

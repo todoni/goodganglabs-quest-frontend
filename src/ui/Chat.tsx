@@ -1,12 +1,11 @@
-import Input from "./components/Input";
-import Button from "./components/Button";
-import Bubble from "./components/Bubble";
+import MessageForm from "./MessageForm";
+import MessageList from "./MessageList";
 
 const Chat = () => {
   return (
     <>
-      <Input />
-      <Button />
+      <MessageList />
+      <MessageForm />
     </>
   );
 };

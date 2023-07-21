@@ -12,7 +12,7 @@ const useChatAI = (repository: IChatAIRepository) => {
       pushMessage({ text: message, isSender: true });
       const answer = await repository.sendMessage(message);
       pushMessage({ text: answer, isSender: false });
-      //speak(answer);
+      speak(answer);
     } catch (error) {
       console.error(error);
     }

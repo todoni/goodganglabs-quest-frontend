@@ -1,8 +1,6 @@
 import { ITTSRepository } from "../domain/ITTSRepository";
-import { TextToSpeechClient } from "@google-cloud/text-to-speech";
-import * as fs from "fs";
-import * as util from "util";
 import LanguageDetect from "languagedetect";
+import HttpClient from "../lib/HttpClient";
 
 enum SsmlVoiceGender {
   SSML_VOICE_GENDER_UNSPECIFIED = "SSML_VOICE_GENDER_UNSPECIFIED",
@@ -25,31 +23,39 @@ enum SsmlVoiceGender {
 
 type AudioEncoding = "LINEAR16" | "MP3" | "OGG_OPUS" | "MULAW" | "ALAW";
 
-const client = new TextToSpeechClient();
+//const client = new TextToSpeechClient();
+const config = {
+  headers: {
+    "content-type": "applicaton/json; charset=UTF-8",
+  },
+};
+const http = new HttpClient(
+  import.meta.env.VITE_APP_GOOGLE_TTS_BASE_URL,
+  config
+);
 const lngDetector = new LanguageDetect();
 
 class GoogleCloudTTSRepository implements ITTSRepository {
   private audio: HTMLAudioElement | null = null;
 
   async speak(script: Script): Promise<void> {
-    const request = {
+    const data = {
       input: { text: script },
       voice: {
-        languageCode: lngDetector.detect(script, 1)[0][0],
-        ssmlGender: SsmlVoiceGender.FEMALE,
+        languageCode: "en-US",
+        ssmlGender: "FEMALE",
       },
-      audioConfig: { audioEncoding: "MP3" as AudioEncoding },
+      audioConfig: { audioEncoding: "MP3" },
     };
-    const outputFile = "./output.mp3";
-    const [response] = await client.synthesizeSpeech(request);
-    const writeFile = util.promisify(fs.writeFile);
-    await writeFile(outputFile, response.audioContent!, "binary");
-    console.log(`Audio content written to file: ${outputFile}`);
-
+    const response = (await http.post(
+      `text:synthesize?key=${import.meta.env.VITE_APP_GOOGLE_API_KEY}`,
+      data
+    )) as any;
     if (!this.audio) {
       this.audio = new Audio();
     }
-    this.audio.src = outputFile;
+    console.log(response.data);
+    this.audio.src = response.data.audioContent;
     this.audio.play();
   }
 

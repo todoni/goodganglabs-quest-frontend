@@ -1,9 +1,8 @@
 import { ITTSRepository } from "../domain/ITTSRepository";
-import { Voice } from "../domain/Voice";
 
 const useTTS = (repository: ITTSRepository) => {
-  const speak = (script: Script, voice: Voice) => {
-    repository.speak(script, voice);
+  const speak = (script: Script) => {
+    repository.speak(script);
   };
   const pause = () => {
     repository.pause();

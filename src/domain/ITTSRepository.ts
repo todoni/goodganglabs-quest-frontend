@@ -1,6 +1,7 @@
-import { Voice } from "./Voice";
-
 export interface ITTSRepository {
-  speak(script: Script, voice: Voice): void;
+  speak(script: Script): void;
   pause(): void;
+  stop(): void;
+  resume(): void;
+  isPlaying(): boolean;
 }

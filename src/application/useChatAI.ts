@@ -1,9 +1,16 @@
 import { IChatAIRepository } from "../domain/IChatAIRepository";
+import useMessageStore from "../domain/zustand/message";
 
 const useChatAI = (repository: IChatAIRepository) => {
-  const sendMessage = (message: string) => {
-    const answer = repository.sendMessage(message);
-    // setAnswer
+  const { pushMessage } = useMessageStore();
+  const sendMessage = async (message: string) => {
+    try {
+      pushMessage({ text: message, isSender: true });
+      const answer = await repository.sendMessage(message);
+      pushMessage({ text: answer, isSender: false });
+    } catch (error) {
+      console.error(error);
+    }
   };
   return { sendMessage };
 };

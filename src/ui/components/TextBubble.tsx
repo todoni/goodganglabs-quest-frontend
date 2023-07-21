@@ -8,6 +8,7 @@ const TextBubble = ({ text, isSender }: TextBubbleProps) => {
     <div
       css={{
         maxWidth: "80%",
+        alignSelf: `${isSender ? "flex-end" : "flex-start"}`,
         border: `0.5px solid ${isSender ? "#ED1898" : "#BEBEBE"}`,
         borderRadius: "50px",
         background: "#FFFFFF",

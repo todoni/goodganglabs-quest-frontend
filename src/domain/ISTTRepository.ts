@@ -1,4 +1,4 @@
 export interface ISTTRepository {
-  start(language: Language): Promise<Script>;
+  start(language: LanguageCode): Promise<Script>;
   stop(): void;
 }

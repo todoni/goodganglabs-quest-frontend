@@ -31,12 +31,12 @@ interface OpenAIMessage {
 
 const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
 class ChatGPTRepository implements IChatAIRepository {
-  private readonly prevMessages: OpenAIMessage[];
-  constructor(messages: { text: string; isSender: boolean }[]) {
+  private prevMessages: OpenAIMessage[] = [];
+  /*constructor(messages: { text: string; isSender: boolean }[]) {
     this.prevMessages = messages.map((item) => {
       return { role: item.isSender ? "user" : "assistant", content: item.text };
     });
-  }
+  }*/
   public async sendMessage(message: string): Promise<string> {
     const data = {
       content: {
@@ -55,7 +55,7 @@ class ChatGPTRepository implements IChatAIRepository {
       },
       endpoint: "chat/completions",
     };
-    console.log("MESSAGES:", data.content.messages);
+    this.prevMessages = data.content.messages;
     try {
       const response: AxiosResponse<OpenAIResponse> = await http.post(
         "openai-chat/",

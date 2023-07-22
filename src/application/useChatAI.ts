@@ -1,11 +1,12 @@
 import { IChatAIRepository } from "../domain/IChatAIRepository";
 import useMessageStore from "../domain/zustand/message";
-import GoogleCloudTTSRepository from "../infrastructure/GoogleCloudTTSRepository";
+import DI from "../lib/DI";
 import useTTS from "./useTTS";
 
-const useChatAI = (repository: IChatAIRepository) => {
+const useChatAI = () => {
+  const repository: IChatAIRepository = DI.getChatAIRepository();
   const { pushMessage } = useMessageStore();
-  const { speak } = useTTS(new GoogleCloudTTSRepository());
+  const { speak } = useTTS();
 
   const sendMessage = async (message: string) => {
     try {

@@ -11,7 +11,6 @@ import * as THREE from "three";
 import React, { useEffect, useRef } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
-import { useAudioState } from "../../application/AudioStateProvider";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -31,7 +30,6 @@ interface GLTFAction extends THREE.AnimationClip {
 //type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 export function Shark(props: JSX.IntrinsicElements["group"]) {
-  const { isPlaying } = useAudioState();
   const group = useRef<THREE.Group>() as React.MutableRefObject<THREE.Group>;
   const { nodes, materials, animations } = useGLTF(
     "/high_quality_shark_animation.glb"
@@ -41,12 +39,8 @@ export function Shark(props: JSX.IntrinsicElements["group"]) {
     group as React.MutableRefObject<THREE.Object3D>
   );
   useEffect(() => {
-    if (isPlaying) {
-      actions["bite"]?.play();
-    } else {
-      actions["swimming"]?.play();
-    }
-  }, [actions, isPlaying]);
+    actions["bite"]?.play();
+  }, [actions]);
 
   return (
     <group ref={group} {...props} dispose={null} scale={0.4}>

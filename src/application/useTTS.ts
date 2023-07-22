@@ -1,17 +1,17 @@
 import { ITTSRepository } from "../domain/ITTSRepository";
-import { useAudioState } from "./AudioStateProvider";
+import DI from "../lib/DI";
 
-const useTTS = (repository: ITTSRepository) => {
-  const { setIsPlaying } = useAudioState();
+const useTTS = () => {
+  const repository: ITTSRepository = DI.getTTSRepository();
   const speak = (script: Script) => {
-    setIsPlaying(true);
     repository.speak(script);
-    setIsPlaying(false);
   };
   const pause = () => {
     repository.pause();
   };
-  return { speak, pause };
+  const istalking = repository.isPlaying();
+
+  return { speak, pause, istalking };
 };
 
 export default useTTS;

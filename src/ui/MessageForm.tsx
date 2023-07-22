@@ -7,9 +7,7 @@ import styled from "@emotion/styled";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
-  const { sendMessage } = useChatAI(
-    new ChatGPTRepository(useMessageStore().messages)
-  );
+  const { sendMessage } = useChatAI();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);

@@ -27,6 +27,7 @@ class GoogleCloudTTSRepository implements ITTSRepository {
     }
 
     this.audio.play();
+    console.log("async?");
   }
 
   pause(): void {

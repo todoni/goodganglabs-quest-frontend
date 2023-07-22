@@ -1,10 +1,9 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import Input from "./components/Input";
-import Button from "./components/Button";
-import { css } from "@emotion/react";
 import useChatAI from "../application/useChatAI";
 import ChatGPTRepository from "../infrastructure/ChatGPTRepository";
 import useMessageStore from "../domain/zustand/message";
+import styled from "@emotion/styled";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
@@ -26,16 +25,14 @@ const MessageForm = () => {
   };
 
   return (
-    <form onSubmit={handleMessageSubmit}>
-      <Input css={InputStyle} onChange={handleInputChange}>
+    <Form onSubmit={handleMessageSubmit}>
+      <Input onChange={handleInputChange}>
         <Input.TextField />
       </Input>
-    </form>
+    </Form>
   );
 };
 
 export default MessageForm;
 
-const InputStyle = css`
-  width: 300px;
-`;
+const Form = styled.form``;

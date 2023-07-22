@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Shark } from "./ui/avatars/High_quality_shark_animation";
 import Chat from "./ui/Chat";
+import Dictaphone from "./application/Dictaphon";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
         <Shark />
       </Canvas>
       <Chat />
+      <Dictaphone />
     </>
   );
 }

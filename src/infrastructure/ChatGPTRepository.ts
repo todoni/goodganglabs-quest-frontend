@@ -29,14 +29,7 @@ interface OpenAIMessage {
   content: string;
 }
 
-const config = {
-  headers: {
-    Authorization: `Bearer ${import.meta.env.VITE_APP_OPENAI_API_KEY}`,
-    "Content-Type": "application/json",
-  },
-};
-
-const http = new HttpClient(import.meta.env.VITE_APP_OPENAI_BASE_URL, config);
+const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
 class ChatGPTRepository implements IChatAIRepository {
   private readonly prevMessages: OpenAIMessage[];
   constructor(messages: { text: string; isSender: boolean }[]) {
@@ -46,23 +39,26 @@ class ChatGPTRepository implements IChatAIRepository {
   }
   public async sendMessage(message: string): Promise<string> {
     const data = {
-      model: "gpt-3.5-turbo",
-      messages: [
-        {
-          role: "system",
-          content: "You are a helpful assistant.",
-        },
-        ...this.prevMessages,
-        {
-          role: "user",
-          content: message,
-        },
-      ],
+      content: {
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            role: "system",
+            content: "You are a helpful assistant.",
+          },
+          ...this.prevMessages,
+          {
+            role: "user",
+            content: message,
+          },
+        ],
+      },
+      endpoint: "chat/completions",
     };
-    console.log("MESSAGES:", data.messages);
+    console.log("MESSAGES:", data.content.messages);
     try {
       const response: AxiosResponse<OpenAIResponse> = await http.post(
-        "chat/completions",
+        "openai-chat/",
         data
       );
       const answer = response.data.choices[0].message.content;

@@ -1,7 +1,8 @@
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import Button from "../ui/components/Button";
+import { BiSolidMicrophone as Mic } from "react-icons/bi";
+import Loader from "../../public/Pulse.gif";
 
 const Dictaphone = () => {
   const {
@@ -25,10 +26,31 @@ const Dictaphone = () => {
 
   return (
     <div>
-      <p>Microphone: {listening ? "on" : "off"}</p>
-      <Button onClick={listening ? handleStopListening : handleStartListening}>
-        {listening ? "Stop" : "Start"}
-      </Button>
+      {listening ? (
+        <img
+          src={Loader}
+          css={{
+            width: "62px",
+            borderRadius: "50px",
+            backgroudColor: "#ED1898",
+            cursor: "pointer",
+          }}
+          onClick={handleStopListening}
+        />
+      ) : (
+        <Mic
+          css={{
+            width: "2rem",
+            height: "2rem",
+            borderRadius: "50px",
+            color: "white",
+            backgroundColor: "#ED1898",
+            padding: "15px 15px 15px 15px",
+            cursor: "pointer",
+          }}
+          onClick={handleStartListening}
+        />
+      )}
       <p>{transcript}</p>
     </div>
   );

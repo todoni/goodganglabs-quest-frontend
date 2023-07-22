@@ -30,7 +30,6 @@ const MessageForm = () => {
       <Input css={InputStyle} onChange={handleInputChange}>
         <Input.TextField />
       </Input>
-      <Button />
     </form>
   );
 };

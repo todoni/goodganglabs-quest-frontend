@@ -13,4 +13,7 @@ export default defineConfig({
     }),
     nodePolyfills(),
   ],
+  optimizeDeps: {
+    exclude: ["js-big-decimal"],
+  },
 });

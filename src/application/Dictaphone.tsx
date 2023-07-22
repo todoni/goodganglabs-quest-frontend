@@ -1,6 +1,7 @@
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
+import Button from "../ui/components/Button";
 
 const Dictaphone = () => {
   const {
@@ -14,23 +15,23 @@ const Dictaphone = () => {
     return <span>Browser doesn't support speech recognition.</span>;
   }
 
+  const handleStartListening = () => {
+    SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
+  };
+
+  const handleStopListening = () => {
+    SpeechRecognition.stopListening();
+  };
+
   return (
     <div>
       <p>Microphone: {listening ? "on" : "off"}</p>
-      <button
-        onClick={() =>
-          SpeechRecognition.startListening({
-            language: "ko-KR",
-            continuous: true,
-          })
-        }
-      >
-        Start
-      </button>
-      <button onClick={SpeechRecognition.stopListening}>Stop</button>
-      <button onClick={resetTranscript}>Reset</button>
+      <Button onClick={listening ? handleStopListening : handleStartListening}>
+        {listening ? "Stop" : "Start"}
+      </Button>
       <p>{transcript}</p>
     </div>
   );
 };
+
 export default Dictaphone;

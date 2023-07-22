@@ -1,10 +1,7 @@
 import { ITTSRepository } from "../domain/ITTSRepository";
-import LanguageDetect from "languagedetect";
 import HttpClient from "../lib/HttpClient";
 
-//const client = new TextToSpeechClient();
 const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
-//const lngDetector = new LanguageDetect();
 
 class GoogleCloudTTSRepository implements ITTSRepository {
   private audio: HTMLAudioElement | null = null;

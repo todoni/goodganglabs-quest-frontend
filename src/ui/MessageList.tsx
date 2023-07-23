@@ -29,4 +29,5 @@ const StyledMessageList = styled.div`
   width: 100%;
   height: 100%;
   overflow-y: auto;
+  grid-row: 1 / 4;
 `;

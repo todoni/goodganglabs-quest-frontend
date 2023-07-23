@@ -34,46 +34,48 @@ const Dictaphone = () => {
   };
 
   return (
-    <div css={{ marginTop: "0.5rem;", alignSelf: "center" }}>
-      {listening ? (
-        <img
-          src={Loader}
-          css={{
-            width: "62px",
-            borderRadius: "50px",
-            backgroudColor: colors.kikipink,
-            cursor: "pointer",
-          }}
-          onClick={handleStopListening}
-        />
-      ) : isLoading ? (
-        <Mic
-          css={{
-            width: "2rem",
-            height: "2rem",
-            borderRadius: "50px",
-            color: "white",
-            backgroundColor: colors.grey300,
-            padding: "15px",
-            cursor: "not-allowed",
-          }}
-        />
-      ) : (
-        <Mic
-          css={{
-            width: "2rem",
-            height: "2rem",
-            borderRadius: "50px",
-            color: "white",
-            backgroundColor: colors.kikipink,
-            padding: "15px",
-            cursor: "pointer",
-          }}
-          onClick={handleStartListening}
-        />
-      )}
-      <p>{listening ? transcript : ""}</p>
-    </div>
+    <>
+      <div css={{ gridRow: "5" }}>
+        {listening ? (
+          <img
+            src={Loader}
+            css={{
+              width: "62px",
+              borderRadius: "50px",
+              backgroudColor: colors.kikipink,
+              cursor: "pointer",
+            }}
+            onClick={handleStopListening}
+          />
+        ) : isLoading ? (
+          <Mic
+            css={{
+              width: "2rem",
+              height: "2rem",
+              borderRadius: "50px",
+              color: "white",
+              backgroundColor: colors.grey300,
+              padding: "15px",
+              cursor: "not-allowed",
+            }}
+          />
+        ) : (
+          <Mic
+            css={{
+              width: "2rem",
+              height: "2rem",
+              borderRadius: "50px",
+              color: "white",
+              backgroundColor: colors.kikipink,
+              padding: "15px",
+              cursor: "pointer",
+            }}
+            onClick={handleStartListening}
+          />
+        )}
+      </div>
+      {listening && <p css={{ gridRow: "6" }}> {transcript}</p>}
+    </>
   );
 };
 

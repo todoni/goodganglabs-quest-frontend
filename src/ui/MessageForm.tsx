@@ -1,8 +1,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import Input from "./components/Input";
 import useChatAI from "../application/useChatAI";
-import ChatGPTRepository from "../infrastructure/ChatGPTRepository";
-import useMessageStore from "../domain/zustand/message";
 import styled from "@emotion/styled";
 
 const MessageForm = () => {
@@ -24,8 +22,8 @@ const MessageForm = () => {
 
   return (
     <Form onSubmit={handleMessageSubmit}>
-      <Input onChange={handleInputChange}>
-        <Input.TextField />
+      <Input>
+        <Input.TextField value={message} onChange={handleInputChange} />
       </Input>
     </Form>
   );

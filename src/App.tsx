@@ -21,4 +21,6 @@ export default App;
 const Layout = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 1fr 2fr;
+  grid-column-gap: 2rem;
 `;

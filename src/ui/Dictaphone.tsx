@@ -35,7 +35,7 @@ const Dictaphone = () => {
 
   return (
     <>
-      <div css={{ gridRow: "5" }}>
+      <div css={{ gridRow: "11" }}>
         {listening ? (
           <img
             src={Loader}
@@ -74,7 +74,7 @@ const Dictaphone = () => {
           />
         )}
       </div>
-      {listening && <p css={{ gridRow: "6" }}> {transcript}</p>}
+      {listening && <p css={{ gridRow: "12" }}> {transcript}</p>}
     </>
   );
 };

@@ -1,4 +1,4 @@
 export type Voice = {
-  language: Language;
+  language: LanguageCode;
   type: VoiceType;
 };

@@ -27,6 +27,7 @@ const MessageForm = () => {
           css={{ borderRadius: "25px" }}
           value={message}
           onChange={handleInputChange}
+          autoFocus
         />
       </Input>
     </Form>

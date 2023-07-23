@@ -16,9 +16,9 @@ const Chat = () => {
 export default Chat;
 
 const ChatWrapper = styled.div`
-  border: solid 1px;
   grid-column: 3 / 5;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  width: 40em;
+  height: 50rem;
 `;

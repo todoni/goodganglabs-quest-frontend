@@ -23,7 +23,11 @@ const MessageForm = () => {
   return (
     <Form onSubmit={handleMessageSubmit}>
       <Input>
-        <Input.TextField value={message} onChange={handleInputChange} />
+        <Input.TextField
+          css={{ borderRadius: "25px" }}
+          value={message}
+          onChange={handleInputChange}
+        />
       </Input>
     </Form>
   );
@@ -31,4 +35,7 @@ const MessageForm = () => {
 
 export default MessageForm;
 
-const Form = styled.form``;
+const Form = styled.form`
+  width: 90%;
+  margin-left: 1%;
+`;

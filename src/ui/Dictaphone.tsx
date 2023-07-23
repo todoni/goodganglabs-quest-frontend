@@ -28,7 +28,7 @@ const Dictaphone = () => {
   };
 
   return (
-    <div css={{ marginTop: "0.5rem;" }}>
+    <div css={{ marginTop: "0.5rem;", alignSelf: "center" }}>
       {listening ? (
         <img
           src={Loader}

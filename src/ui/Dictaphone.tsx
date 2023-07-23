@@ -3,7 +3,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { BiSolidMicrophone as Mic } from "react-icons/bi";
 import Loader from "../../public/Pulse.gif";
-import useChatAI from "./useChatAI";
+import useChatAI from "../application/useChatAI";
 
 const Dictaphone = () => {
   const {

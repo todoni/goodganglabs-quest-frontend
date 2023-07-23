@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
-import Dictaphone from "../application/Dictaphone";
+import Dictaphone from "./Dictaphone";
 
 const Chat = () => {
   return (

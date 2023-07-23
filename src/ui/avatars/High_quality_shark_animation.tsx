@@ -8,9 +8,10 @@ Title: High quality shark animation
 */
 
 import * as THREE from "three";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useGLTF, useAnimations } from "@react-three/drei";
 import { GLTF } from "three-stdlib";
+import { Event } from "../../lib/event";
 
 type GLTFResult = GLTF & {
   nodes: {
@@ -27,9 +28,9 @@ type ActionName = "swimming" | "circling" | "bite";
 interface GLTFAction extends THREE.AnimationClip {
   name: ActionName;
 }
-//type GLTFActions = Record<ActionName, THREE.AnimationAction>;
 
 export function Shark(props: JSX.IntrinsicElements["group"]) {
+  const [isSpeaking, setIsSpeaking] = useState(false);
   const group = useRef<THREE.Group>() as React.MutableRefObject<THREE.Group>;
   const { nodes, materials, animations } = useGLTF(
     "/high_quality_shark_animation.glb"
@@ -38,9 +39,20 @@ export function Shark(props: JSX.IntrinsicElements["group"]) {
     animations,
     group as React.MutableRefObject<THREE.Object3D>
   );
+  Event.on("IS_SPEAK", (isSpeak) => {
+    setIsSpeaking(isSpeak);
+  });
   useEffect(() => {
-    actions["bite"]?.play();
-  }, [actions]);
+    if (isSpeaking) {
+      actions["bite"]?.play();
+    } else {
+      actions["swimming"]?.play();
+    }
+    return () => {
+      actions["bite"]?.stop();
+      actions["swimming"]?.stop();
+    };
+  }, [actions, isSpeaking]);
 
   return (
     <group ref={group} {...props} dispose={null} scale={0.4}>

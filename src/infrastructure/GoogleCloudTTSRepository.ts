@@ -1,10 +1,11 @@
 import { ITTSRepository } from "../domain/ITTSRepository";
 import HttpClient from "../lib/HttpClient";
+import { Event } from "../lib/event";
 
 const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
 
 class GoogleCloudTTSRepository implements ITTSRepository {
-  private audio: HTMLAudioElement | null = null;
+  private audio: HTMLAudioElement = new Audio();
 
   async speak(script: Script): Promise<void> {
     const data = {
@@ -20,31 +21,27 @@ class GoogleCloudTTSRepository implements ITTSRepository {
     };
     const response = (await http.post("google-tts/", data)) as any;
 
-    this.audio = new Audio(
-      "data:audio/wav;base64," + response.data.audioContent
-    );
+    this.audio.src = "data:audio/wav;base64," + response.data.audioContent;
+
+    this.audio.onended = () => {
+      Event.emit("IS_SPEAK", false);
+    };
 
     this.audio.play();
-    console.log("async?");
+    Event.emit("IS_SPEAK", true);
   }
 
   pause(): void {
-    if (this.audio) {
-      this.audio.pause();
-    }
+    this.audio.pause();
   }
 
   stop(): void {
-    if (this.audio) {
-      this.audio.pause();
-      this.audio.currentTime = 0;
-    }
+    this.audio.pause();
+    this.audio.currentTime = 0;
   }
 
   resume(): void {
-    if (this.audio && this.audio.paused) {
-      this.audio.play();
-    }
+    this.audio.play();
   }
 
   isPlaying(): boolean {

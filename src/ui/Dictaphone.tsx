@@ -72,7 +72,7 @@ const Dictaphone = () => {
           onClick={handleStartListening}
         />
       )}
-      <p>{transcript}</p>
+      <p>{listening ? transcript : ""}</p>
     </div>
   );
 };

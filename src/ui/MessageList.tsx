@@ -1,11 +1,18 @@
+import { useRef, useEffect } from "react";
 import TextBubble from "./components/TextBubble";
 import useMessageStore from "../domain/zustand/message";
 import styled from "@emotion/styled";
 
 const MessageList = () => {
   const { messages } = useMessageStore();
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    scrollRef.current?.scrollTo(0, scrollRef.current.scrollHeight);
+  }, [messages]);
+
   return (
-    <StyledMessageList>
+    <StyledMessageList ref={scrollRef}>
       {messages.map((message, index) => (
         <TextBubble key={index} {...message} />
       ))}

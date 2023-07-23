@@ -9,6 +9,9 @@ const useChatAI = () => {
   const { speak } = useTTS();
 
   const sendMessage = async (message: string) => {
+    if (message.trim() === "") {
+      return;
+    }
     try {
       pushMessage({ text: message, isSender: true });
       const answer = await repository.sendMessage(message);

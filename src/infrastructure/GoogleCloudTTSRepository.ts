@@ -20,11 +20,9 @@ class GoogleCloudTTSRepository implements ITTSRepository {
     };
     const response = (await http.post("google-tts/", data)) as any;
 
-    if (!this.audio) {
-      this.audio = new Audio(
-        "data:audio/wav;base64," + response.data.audioContent
-      );
-    }
+    this.audio = new Audio(
+      "data:audio/wav;base64," + response.data.audioContent
+    );
 
     this.audio.play();
     console.log("async?");

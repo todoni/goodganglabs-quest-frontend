@@ -3,6 +3,7 @@ import SpeechRecognition, {
 } from "react-speech-recognition";
 import { BiSolidMicrophone as Mic } from "react-icons/bi";
 import Loader from "../../public/Pulse.gif";
+import useChatAI from "./useChatAI";
 
 const Dictaphone = () => {
   const {
@@ -11,7 +12,7 @@ const Dictaphone = () => {
     resetTranscript,
     browserSupportsSpeechRecognition,
   } = useSpeechRecognition();
-
+  const { sendMessage } = useChatAI();
   if (!browserSupportsSpeechRecognition) {
     return <span>Browser doesn't support speech recognition.</span>;
   }
@@ -22,6 +23,8 @@ const Dictaphone = () => {
 
   const handleStopListening = () => {
     SpeechRecognition.stopListening();
+    sendMessage(transcript);
+    resetTranscript();
   };
 
   return (

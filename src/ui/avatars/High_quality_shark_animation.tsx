@@ -39,9 +39,10 @@ export function Shark(props: JSX.IntrinsicElements["group"]) {
     animations,
     group as React.MutableRefObject<THREE.Object3D>
   );
-  Event.on("IS_SPEAK", (isSpeak) => {
+  const handleIsSpeak = (isSpeak: boolean) => {
     setIsSpeaking(isSpeak);
-  });
+  };
+  Event.on("IS_SPEAK", handleIsSpeak);
   useEffect(() => {
     if (isSpeaking) {
       actions["bite"]?.play();
@@ -51,6 +52,7 @@ export function Shark(props: JSX.IntrinsicElements["group"]) {
     return () => {
       actions["bite"]?.stop();
       actions["swimming"]?.stop();
+      Event.off("IS_SPEAK", handleIsSpeak);
     };
   }, [actions, isSpeaking]);
 

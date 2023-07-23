@@ -2,10 +2,12 @@ import { useState, ChangeEvent, FormEvent } from "react";
 import Input from "./components/Input";
 import useChatAI from "../application/useChatAI";
 import styled from "@emotion/styled";
+import useMessageStore from "../domain/zustand/message";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
   const { sendMessage } = useChatAI();
+  const { isLoading } = useMessageStore();
 
   const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setMessage(event.target.value);
@@ -27,6 +29,7 @@ const MessageForm = () => {
           css={{ borderRadius: "25px" }}
           value={message}
           onChange={handleInputChange}
+          disabled={isLoading}
           autoFocus
         />
       </Input>

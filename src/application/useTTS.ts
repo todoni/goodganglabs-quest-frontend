@@ -4,14 +4,21 @@ import DI from "../lib/DI";
 const useTTS = () => {
   const repository: ITTSRepository = DI.getTTSRepository();
   const speak = (script: Script) => {
-    repository.speak(script);
+    try {
+      repository.speak(script);
+    } catch (error) {
+      console.error(error);
+    }
   };
   const pause = () => {
     repository.pause();
   };
+  const stop = () => {
+    repository.stop();
+  };
   const istalking = repository.isPlaying();
 
-  return { speak, pause, istalking };
+  return { speak, pause, stop, istalking };
 };
 
 export default useTTS;

@@ -18,8 +18,9 @@ export default Chat;
 const ChatWrapper = styled.div`
   grid-column: 3 / 5;
   display: grid;
-  grid-template-rows: repeat(6, 1fr);
-  width: 40em;
+  grid-template-rows: repeat(12, 1fr);
+  gap: 1rem;
+  width: 40rem;
   height: 50rem;
   align-items: center;
   text-align: center;

@@ -42,5 +42,5 @@ export default MessageForm;
 const Form = styled.form`
   width: 90%;
   margin-left: 1%;
-  grid-row: 4;
+  grid-row: 10;
 `;

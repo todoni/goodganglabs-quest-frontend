@@ -76,6 +76,7 @@ const colors = {
   purple700: "#7b1fa2",
   purple800: "#6a1b9a",
   purple900: "#4a148c",
+  kikipink: "#ED1898",
   teal50: "#e1f0f2",
   teal100: "#b1dade",
   teal200: "#81c7cc",

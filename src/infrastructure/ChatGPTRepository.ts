@@ -32,11 +32,7 @@ interface OpenAIMessage {
 const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
 class ChatGPTRepository implements IChatAIRepository {
   private prevMessages: OpenAIMessage[] = [];
-  /*constructor(messages: { text: string; isSender: boolean }[]) {
-    this.prevMessages = messages.map((item) => {
-      return { role: item.isSender ? "user" : "assistant", content: item.text };
-    });
-  }*/
+
   public async sendMessage(message: string): Promise<string> {
     const data = {
       content: {
@@ -55,14 +51,20 @@ class ChatGPTRepository implements IChatAIRepository {
       },
       endpoint: "chat/completions",
     };
-    this.prevMessages = data.content.messages;
     try {
+      console.log("messages", this.prevMessages);
       const response: AxiosResponse<OpenAIResponse> = await http.post(
         "openai-chat/",
         data
       );
-      const answer = response.data.choices[0].message.content;
-      return answer;
+      const answer = response.data.choices[0].message;
+      this.prevMessages = [
+        ...this.prevMessages,
+        { role: "user", content: message },
+        answer,
+      ];
+      //console.log("answer", response.data.choices[0].message);
+      return answer.content;
     } catch (error) {
       console.error("Error sending message:", error);
       throw new Error("Failed to get a response.");

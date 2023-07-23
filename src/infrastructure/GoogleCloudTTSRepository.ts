@@ -19,16 +19,22 @@ class GoogleCloudTTSRepository implements ITTSRepository {
       },
       endpoint: "text:synthesize",
     };
-    const response = (await http.post("google-tts/", data)) as any;
 
-    this.audio.src = "data:audio/wav;base64," + response.data.audioContent;
+    try {
+      const response = (await http.post("google-tts/", data)) as any;
 
-    this.audio.onended = () => {
-      Event.emit("IS_SPEAK", false);
-    };
+      this.audio.src = "data:audio/wav;base64," + response.data.audioContent;
 
-    this.audio.play();
-    Event.emit("IS_SPEAK", true);
+      this.audio.onended = () => {
+        Event.emit("IS_SPEAK", false);
+      };
+
+      this.audio.play();
+      Event.emit("IS_SPEAK", true);
+    } catch (error) {
+      console.error("Error sending message:", error);
+      throw new Error("Failed to get a response");
+    }
   }
 
   pause(): void {

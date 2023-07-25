@@ -47,18 +47,6 @@ const Dictaphone = () => {
             }}
             onClick={handleStopListening}
           />
-        ) : isLoading ? (
-          <Mic
-            css={{
-              width: "2rem",
-              height: "2rem",
-              borderRadius: "50px",
-              color: "white",
-              backgroundColor: colors.grey300,
-              padding: "15px",
-              cursor: "not-allowed",
-            }}
-          />
         ) : (
           <Mic
             css={{
@@ -66,11 +54,11 @@ const Dictaphone = () => {
               height: "2rem",
               borderRadius: "50px",
               color: "white",
-              backgroundColor: colors.kikipink,
+              backgroundColor: isLoading ? colors.grey300 : colors.kikipink,
               padding: "15px",
-              cursor: "pointer",
+              cursor: isLoading ? "not-allowed" : "pointer",
             }}
-            onClick={handleStartListening}
+            onClick={isLoading ? () => {} : handleStartListening}
           />
         )}
       </div>

@@ -2,7 +2,7 @@ import { ITTSRepository } from "../domain/ITTSRepository";
 import HttpClient from "../lib/HttpClient";
 import { Event } from "../lib/event";
 
-const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
+const http = new HttpClient(import.meta.env.VITE_APP_API_URL);
 
 class GoogleCloudTTSRepository implements ITTSRepository {
   private audio: HTMLAudioElement = new Audio();

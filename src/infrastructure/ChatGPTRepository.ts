@@ -29,7 +29,7 @@ interface OpenAIMessage {
   content: string;
 }
 
-const http = new HttpClient(import.meta.env.VITE_APP_TEST_URL);
+const http = new HttpClient(import.meta.env.VITE_APP_API_URL);
 class ChatGPTRepository implements IChatAIRepository {
   private prevMessages: OpenAIMessage[] = [];
 

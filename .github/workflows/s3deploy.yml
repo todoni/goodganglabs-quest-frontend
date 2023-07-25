@@ -1,0 +1,37 @@
+name: s3-deploy
+
+on:
+  push:
+    branches:
+      - main
+jobs:    
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout source code
+      uses: actions/checkout@v3
+
+    - name: Set up Node.js
+      uses: actions/setup-node@master
+      with:
+        node-version: 18.x
+
+    - name: Install dependencies
+      run: yarn install
+      
+    - name: Build page
+      env:
+        VITE_APP_API_URL: ${{secrets.VITE_APP_API_URL}}
+      run: yarn build
+      
+    - name: Deploy to S3
+      env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        aws s3 sync \
+        --region ap-northeast-2 \
+        dist s3://s3-sohan-bucket \
+        --delete
+      # working-directory: ./

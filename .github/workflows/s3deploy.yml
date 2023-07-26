@@ -45,6 +45,7 @@ jobs:
           host: ${{ secrets.AWS_EC2_IP }} # 인스턴스 IP
           username: ${{ secrets.AWS_EC2_USER }} # 우분투 아이디
           key: ${{ secrets.AWS_EC2_PEM_KEY }} # ec2 instance pem key
+          envs: AWS_ACCESS_KEY_ID,AWS_SECRET_ACCESS_KEY
           script: | # 실행할 스크립트
             aws s3 cp s3://s3-sohan-bucket/dist ./ --recursive
       

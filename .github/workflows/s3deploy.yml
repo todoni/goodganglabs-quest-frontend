@@ -39,9 +39,9 @@ jobs:
     - name: copy file to EC2 instance via ssh connection
       uses: appleboy/ssh-action@v1.0.0
       with:
-          host: ${{ secrets.REMOTE_IP }} # 인스턴스 IP
-          username: ${{ secrets.REMOTE_USER }} # 우분투 아이디
-          key: ${{ secrets.REMOTE_PRIVATE_KEY }} # ec2 instance pem key
+          host: ${{ secrets.AWS_EC2_IP }} # 인스턴스 IP
+          username: ${{ secrets.AWS_EC2_USER }} # 우분투 아이디
+          key: ${{ secrets.AWS_EC2_PEM_KEY }} # ec2 instance pem key
           script: | # 실행할 스크립트
             aws s3 cp s3://s3-sohan-bucket/dist ./ --recursive
       

@@ -25,7 +25,7 @@ jobs:
         VITE_APP_API_URL: ${{secrets.VITE_APP_API_URL}}
       run: yarn build
       
-    - name: Deploy to S3
+    - name: upload to S3
       env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -35,3 +35,14 @@ jobs:
         dist s3://s3-sohan-bucket \
         --delete
       # working-directory: ./
+    
+    - name: copy file to EC2 instance via ssh connection
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+          host: ${{ secrets.REMOTE_IP }} # 인스턴스 IP
+          username: ${{ secrets.REMOTE_USER }} # 우분투 아이디
+          key: ${{ secrets.REMOTE_PRIVATE_KEY }} # ec2 instance pem key
+          script: | # 실행할 스크립트
+            aws s3 cp s3://s3-sohan-bucket/dist ./ --recursive
+      
+    

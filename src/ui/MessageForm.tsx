@@ -23,7 +23,7 @@ const MessageForm = () => {
   };
 
   return (
-    <Form onSubmit={handleMessageSubmit}>
+    <Form onSubmit={handleMessageSubmit} method="GET">
       <Input>
         <Input.TextField
           css={{ borderRadius: "25px" }}

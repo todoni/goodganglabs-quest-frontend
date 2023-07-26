@@ -49,5 +49,7 @@ jobs:
           script: | # 실행할 스크립트
             rm -rf dist
             aws s3 cp s3://s3-sohan-bucket/ ./dist/ --recursive
+            cd deploy
+            sleep 5 && make f
       
     

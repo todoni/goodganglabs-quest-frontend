@@ -3,6 +3,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import DI from "./lib/DI.ts";
+import "./App.css";
 
 const repos = new DI();
 

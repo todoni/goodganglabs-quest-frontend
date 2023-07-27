@@ -19,7 +19,7 @@ const TextBubble = ({ text, isSender }: TextBubbleProps) => {
         fontSize: "15px",
         padding: "0.5rem 0.7rem",
         margin: "0.5rem",
-        lineHeight: "1.3rem",
+        lineHeight: "1.4rem",
         textAlign: "left",
       }}
     >

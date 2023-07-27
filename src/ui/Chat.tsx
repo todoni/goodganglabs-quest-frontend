@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import Dictaphone from "./Dictaphone";
+import { mobile } from "../lib/mediaquery";
 
 const Chat = () => {
   return (
@@ -22,6 +23,10 @@ const ChatWrapper = styled.div`
   gap: 1rem;
   width: 40rem;
   height: 50rem;
+  ${mobile} {
+    width: 10rem;
+    height: 20rem;
+  }
   align-items: center;
   text-align: center;
 `;

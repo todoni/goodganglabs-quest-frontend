@@ -57,6 +57,6 @@ const InputStyle = css`
   border: solid 1px ${colors.grey300};
   &:focus {
     outline: none;
-    border: solid 1px ${colors.kikipink};
+    border: solid 2px ${colors.kikipinkOpacity500};
   }
 `;

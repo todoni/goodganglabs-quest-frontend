@@ -17,7 +17,7 @@ const Chat = () => {
 export default Chat;
 
 const ChatWrapper = styled.div`
-  grid-column: 3 / 5;
+  grid-column: 6 / 10;
   display: grid;
   grid-template-rows: repeat(12, 1fr);
   gap: 1rem;

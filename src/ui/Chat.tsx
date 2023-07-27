@@ -27,6 +27,7 @@ const ChatWrapper = styled.div`
     width: 10rem;
     height: 20rem;
     grid-row: 2;
+    grid-column: 1;
   }
   align-items: center;
   text-align: center;

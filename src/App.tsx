@@ -23,13 +23,17 @@ export default App;
 const Layout = styled.div`
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: 1fr 1fr 1fr;
+  ${mobile} {
+    grid-template-columns: 1fr;
+  }
+  grid-template-rows: 1fr 2fr;
   grid-column-gap: 2rem;
 `;
 
 const CanvasStyle = css`
   grid-column: 2;
   ${mobile} {
+    grid-column: 1;
     grid-row: 1;
   }
 `;

@@ -24,8 +24,8 @@ const ChatWrapper = styled.div`
   width: 40rem;
   height: 50rem;
   ${mobile} {
-    width: 10rem;
-    height: 20rem;
+    width: 100%;
+    height: 100%;
     grid-row: 2;
     grid-column: 1;
   }

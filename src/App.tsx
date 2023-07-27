@@ -34,6 +34,5 @@ const CanvasStyle = css`
   grid-column: 2;
   ${mobile} {
     grid-column: 1;
-    grid-row: 1;
   }
 `;

@@ -26,6 +26,7 @@ const ChatWrapper = styled.div`
   ${mobile} {
     width: 10rem;
     height: 20rem;
+    grid-row: 2;
   }
   align-items: center;
   text-align: center;

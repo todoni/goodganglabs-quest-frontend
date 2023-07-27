@@ -15,7 +15,11 @@ const useChatAI = () => {
     try {
       pushMessage({ text: message, isSender: true, isLoading: false });
       setIsLoading(true);
-      pushMessage({ text: "기다리는중...", isSender: false, isLoading: true });
+      pushMessage({
+        text: "대답을 만드는 중...✍️",
+        isSender: false,
+        isLoading: true,
+      });
       stop();
       const answer = await repository.sendMessage(message);
       popMessage();
@@ -24,6 +28,13 @@ const useChatAI = () => {
       speak(answer);
     } catch (error) {
       console.error(error);
+      popMessage();
+      setIsLoading(false);
+      pushMessage({
+        text: "오류가 발생했어요. 새로고침 후 다시 실행 해주세요 😔",
+        isSender: false,
+        isLoading: false,
+      });
     }
   };
   return { sendMessage };

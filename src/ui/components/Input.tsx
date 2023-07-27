@@ -24,7 +24,7 @@ const Input = ({ label, children, bottomText, ...props }: InputProps) => {
   const isError: boolean = child.props.error ?? false;
 
   return (
-    <div css={{ width: "100%" }} {...props}>
+    <div css={{ width: "100%", outline: "none" }} {...props}>
       <label
         htmlFor={id}
         css={{
@@ -69,31 +69,7 @@ Input.TextField = forwardRef(
     { error, ...props }: TextFieldProps,
     ref: ForwardedRef<HTMLInputElement>
   ) => {
-    return (
-      <input
-        css={{
-          width: "100%",
-          padding: "0 18px",
-          fontSize: "15px",
-          lineHeight: "48px",
-          margin: 0,
-          outline: "none",
-          borderRadius: "8px",
-          backgroundColor: colors.white,
-          transition: `background .2s ease,color .1s ease, box-shadow .2s ease`,
-          boxShadow: `inset 0 0 0 1px ${
-            error ? colors.red600 : colors.greyOpacity200
-          }`,
-          "&:focus": {
-            boxShadow: `inset 0 0 0 2px ${
-              error ? colors.red600 : colors.blue500
-            }`,
-          },
-        }}
-        ref={ref}
-        {...props}
-      />
-    );
+    return <input ref={ref} {...props} />;
   }
 );
 

@@ -3,6 +3,8 @@ import Input from "./components/Input";
 import useChatAI from "../application/useChatAI";
 import styled from "@emotion/styled";
 import useMessageStore from "../domain/zustand/message";
+import { css } from "@emotion/react";
+import colors from "./components/colors";
 
 const MessageForm = () => {
   const [message, setMessage] = useState("");
@@ -23,10 +25,10 @@ const MessageForm = () => {
   };
 
   return (
-    <Form onSubmit={handleMessageSubmit} method="GET">
+    <Form onSubmit={handleMessageSubmit}>
       <Input>
         <Input.TextField
-          css={{ borderRadius: "25px" }}
+          css={InputStyle}
           value={message}
           onChange={handleInputChange}
           disabled={isLoading}
@@ -43,4 +45,18 @@ const Form = styled.form`
   width: 90%;
   margin-left: 1%;
   grid-row: 10;
+`;
+
+const InputStyle = css`
+  border-radius: 25px;
+  width: 100%;
+  padding: 0 18px;
+  font-size: 15px;
+  line-height: 48px;
+  margin: 0;
+  border: solid 1px ${colors.grey300};
+  &:focus {
+    outline: none;
+    border: solid 1px ${colors.kikipink};
+  }
 `;

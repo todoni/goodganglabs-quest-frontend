@@ -6,6 +6,7 @@ import Loader from "../../public/Pulse.gif";
 import useChatAI from "../application/useChatAI";
 import useMessageStore from "../domain/zustand/message";
 import colors from "./components/colors";
+import { useEffect } from "react";
 
 const Dictaphone = () => {
   const {
@@ -13,6 +14,7 @@ const Dictaphone = () => {
     listening,
     resetTranscript,
     browserSupportsSpeechRecognition,
+    isMicrophoneAvailable,
   } = useSpeechRecognition();
   const { sendMessage } = useChatAI();
   const { isLoading, setIsLoading } = useMessageStore();
@@ -22,17 +24,23 @@ const Dictaphone = () => {
 
   const handleStartListening = () => {
     resetTranscript();
-    setIsLoading(true);
     SpeechRecognition.startListening({ language: "ko-KR", continuous: true });
   };
 
   const handleStopListening = () => {
-    setIsLoading(false);
     SpeechRecognition.stopListening();
     sendMessage(transcript);
     resetTranscript();
   };
 
+  useEffect(() => {
+    if (listening) {
+      setIsLoading(true);
+    }
+    return () => {
+      setIsLoading(false);
+    };
+  }, [listening]);
   return (
     <>
       <div css={{ gridRow: "11" }}>
@@ -54,11 +62,19 @@ const Dictaphone = () => {
               height: "2rem",
               borderRadius: "50px",
               color: "white",
-              backgroundColor: isLoading ? colors.grey300 : colors.kikipink,
+              backgroundColor:
+                isLoading || !isMicrophoneAvailable
+                  ? colors.grey300
+                  : colors.kikipink,
               padding: "15px",
-              cursor: isLoading ? "not-allowed" : "pointer",
+              cursor:
+                isLoading || !isMicrophoneAvailable ? "not-allowed" : "pointer",
             }}
-            onClick={isLoading ? () => {} : handleStartListening}
+            onClick={
+              isLoading || !isMicrophoneAvailable
+                ? () => {}
+                : handleStartListening
+            }
           />
         )}
       </div>

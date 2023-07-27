@@ -52,7 +52,6 @@ class ChatGPTRepository implements IChatAIRepository {
       endpoint: "chat/completions",
     };
     try {
-      console.log("messages", this.prevMessages);
       const response: AxiosResponse<OpenAIResponse> = await http.post(
         "openai-chat/",
         data
@@ -63,7 +62,6 @@ class ChatGPTRepository implements IChatAIRepository {
         { role: "user", content: message },
         answer,
       ];
-      //console.log("answer", response.data.choices[0].message);
       return answer.content;
     } catch (error) {
       console.error("Error sending message:", error);

@@ -78,7 +78,6 @@ Input.TextField = forwardRef(
           lineHeight: "48px",
           margin: 0,
           outline: "none",
-          border: "none",
           borderRadius: "8px",
           backgroundColor: colors.white,
           transition: `background .2s ease,color .1s ease, box-shadow .2s ease`,
